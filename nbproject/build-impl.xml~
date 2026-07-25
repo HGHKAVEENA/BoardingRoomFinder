@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    NetBeans build-impl.xml stub for BoardingRoomFinder.
+    NetBeans will replace this with its own generated file on first open.
+    This stub allows the project to be recognized as a valid Web Project.
+-->
+<project name="BoardingRoomFinder-impl" default="build" basedir="..">
+    <import file="ant-deploy.xml"/>
+
+    <property name="src.dir" value="src"/>
+    <property name="web.docbase.dir" value="web"/>
+    <property name="build.dir" value="build"/>
+    <property name="build.web.dir" value="${build.dir}/web"/>
+    <property name="build.classes.dir" value="${build.web.dir}/WEB-INF/classes"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="dist.war" value="${dist.dir}/BoardingRoomFinder.war"/>
+    <property name="war.name" value="BoardingRoomFinder.war"/>
+
+    <target name="build" depends="compile" description="Build the project"/>
+
+    <target name="compile" depends="-init" description="Compile Java sources">
+        <mkdir dir="${build.classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.classes.dir}" includeantruntime="false" source="17" target="17">
+            <classpath>
+                <fileset dir="${web.docbase.dir}/WEB-INF/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="-init">
+        <mkdir dir="${build.web.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="dist" depends="compile" description="Create WAR archive">
+        <war destfile="${dist.war}" webxml="${web.docbase.dir}/WEB-INF/web.xml">
+            <fileset dir="${web.docbase.dir}"/>
+            <classes dir="${build.classes.dir}"/>
+        </war>
+    </target>
+
+    <target name="clean" description="Clean build artifacts">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+</project>
